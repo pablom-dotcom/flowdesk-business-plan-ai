@@ -1,10 +1,10 @@
 {
-  "name": "flowdesk-business-plan-ai",
-  "version": "1.0.0",
-  "private": true,
-  "description": "FlowDesk Business Plan AI — landing page + AI business plan & 12-month forecast generator for first-time founders.",
-  "scripts": {
-    "dev": "vercel dev",
-    "deploy": "vercel --prod"
-  }
+    "name": "flowdesk-business-plan-ai",
+    "version": "1.0.1",
+    "private": true,
+    "description": "FlowDesk Business Plan AI — landing page + AI business plan & 12-month forecast generator for first-time founders.",
+    "scripts": {
+          "dev": "vercel dev",
+          "deploy": "vercel --prod"
+    }
 }
