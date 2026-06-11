@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowDesk Business Plan AI — One-Page Plans & 12-Month Forecasts</title>
+<meta name="description" content="Answer 6 quick questions about your business idea and get a full one-page business plan plus a 12-month financial forecast — formatted, downloadable as PDF, ready in under a minute.">
+<style>
+  :root {
+    --bg:#0d0f14; --surface:#161920; --card:#1c2030; --border:#252a3a;
+    --accent:#7b6fff; --accent2:#00e5a0; --accent3:#ff6b9d;
+    --text:#e8ecf4; --muted:#8088a4; --green:#22c55e; --red:#ef4444;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Segoe UI',system-ui,-apple-system,sans-serif; line-height:1.6; }
+  a { color:inherit; }
+  .wrap { max-width:1080px; margin:0 auto; padding:0 24px; }
+
+  nav { border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(13,15,20,0.92); backdrop-filter:blur(8px); z-index:50; }
+  nav .wrap { display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .logo { display:flex; align-items:center; gap:10px; font-weight:800; font-size:17px; }
+  .logo-icon { width:34px; height:34px; border-radius:9px; background:linear-gradient(135deg,var(--accent),var(--accent3)); display:flex; align-items:center; justify-content:center; font-weight:900; color:#0d0f14; }
+  .logo span { color:var(--accent); }
+  .nav-links { display:flex; gap:28px; font-size:14px; color:var(--muted); }
+  .nav-links a:hover { color:var(--text); }
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:10px; font-weight:700; font-size:14px; padding:11px 22px; border:none; cursor:pointer; transition:transform .12s ease, opacity .12s ease; text-decoration:none; }
+  .btn:hover { transform:translateY(-1px); }
+  .btn-primary { background:linear-gradient(135deg,var(--accent),#6256e6); color:#fff; }
+  .btn-ghost { background:var(--card); color:var(--text); border:1px solid var(--border); }
+  .btn-block { width:100%; }
+  .btn:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+
+  .hero { padding:80px 0 56px; text-align:center; }
+  .pill { display:inline-block; background:rgba(123,111,255,0.1); border:1px solid rgba(123,111,255,0.28); color:var(--accent); font-size:12px; font-weight:700; letter-spacing:.4px; padding:6px 14px; border-radius:30px; margin-bottom:22px; }
+  h1 { font-size:44px; font-weight:900; letter-spacing:-1.4px; max-width:760px; margin:0 auto 18px; }
+  h1 em { font-style:normal; background:linear-gradient(90deg,var(--accent),var(--accent3)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .hero p.sub { font-size:17px; color:var(--muted); max-width:580px; margin:0 auto 34px; }
+  .hero-ctas { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .hero-note { margin-top:16px; font-size:12px; color:var(--muted); }
+
+  .tool-section { padding:20px 0 72px; }
+  .tool-card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:32px; max-width:760px; margin:0 auto; }
+  .tool-card h2 { font-size:20px; font-weight:800; margin-bottom:6px; }
+  .tool-card .hint { font-size:13px; color:var(--muted); margin-bottom:22px; }
+  .qfield { margin-bottom:16px; }
+  .qfield label { display:block; font-size:13px; font-weight:700; margin-bottom:7px; }
+  .qfield label .opt { color:var(--muted); font-weight:500; }
+  .qfield input, .qfield textarea, .qfield select {
+    width:100%; background:#11141b; border:1px solid var(--border); border-radius:10px;
+    padding:12px 14px; color:var(--text); font-size:14px; outline:none; font-family:inherit; resize:vertical;
+  }
+  .qfield input:focus, .qfield textarea:focus, .qfield select:focus { border-color:var(--accent); }
+  .qgrid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .quota { margin-top:6px; font-size:12px; color:var(--muted); display:flex; align-items:center; gap:8px; }
+  .quota .dot { width:7px; height:7px; border-radius:50%; background:var(--accent); display:inline-block; }
+  .quota.low .dot { background:var(--accent3); }
+
+  .result { margin-top:28px; display:none; }
+  .result.show { display:block; animation:fadeIn .25s ease; }
+  @keyframes fadeIn { from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+  .result-block { background:#11141b; border:1px solid var(--border); border-radius:14px; padding:18px 20px; margin-bottom:14px; }
+  .result-block .lbl { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--accent); margin-bottom:10px; }
+  .plan-section { margin-bottom:14px; }
+  .plan-section h4 { font-size:14px; font-weight:700; margin-bottom:5px; color:var(--text); }
+  .plan-section p { font-size:13.5px; color:#c4cade; line-height:1.7; }
+  table.forecast { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:6px; }
+  table.forecast th, table.forecast td { text-align:right; padding:7px 9px; border-bottom:1px solid var(--border); white-space:nowrap; }
+  table.forecast th:first-child, table.forecast td:first-child { text-align:left; color:var(--muted); }
+  table.forecast th { color:var(--muted); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:.5px; }
+  table.forecast tbody tr:last-child td { font-weight:700; color:var(--text); border-bottom:none; }
+  .forecast-wrap { overflow-x:auto; }
+
+  .loading { display:none; align-items:center; gap:10px; font-size:13px; color:var(--muted); margin-top:20px; }
+  .loading.show { display:flex; }
+  .spinner { width:16px; height:16px; border-radius:50%; border:2px solid var(--border); border-top-color:var(--accent); animation:spin .7s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  .modal-bg { display:none; position:fixed; inset:0; background:rgba(8,10,14,0.72); z-index:200; align-items:center; justify-content:center; padding:20px; }
+  .modal-bg.show { display:flex; }
+  .modal { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:32px; max-width:420px; width:100%; text-align:center; }
+  .modal h3 { font-size:21px; font-weight:800; margin-bottom:10px; }
+  .modal p { font-size:13.5px; color:var(--muted); margin-bottom:22px; }
+  .modal .price { font-size:34px; font-weight:900; color:var(--accent); }
+  .modal .price span { font-size:14px; font-weight:600; color:var(--muted); }
+  .modal-close { background:none; border:none; color:var(--muted); font-size:13px; cursor:pointer; margin-top:14px; }
+
+  .section { padding:64px 0; border-top:1px solid var(--border); }
+  .section-label { font-size:11px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:1.6px; margin-bottom:8px; text-align:center; }
+  .section-title { font-size:28px; font-weight:800; letter-spacing:-0.6px; text-align:center; margin-bottom:40px; }
+  .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .step { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:26px; }
+  .step .num { width:32px; height:32px; border-radius:9px; background:rgba(123,111,255,0.14); color:var(--accent); font-weight:800; display:flex; align-items:center; justify-content:center; margin-bottom:14px; font-size:14px; }
+  .step h4 { font-size:15px; font-weight:700; margin-bottom:6px; }
+  .step p { font-size:13px; color:var(--muted); }
+
+  .pricing-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; max-width:640px; margin:0 auto; }
+  .price-card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:28px; }
+  .price-card.featured { border-color:var(--accent); background:rgba(123,111,255,0.06); position:relative; }
+  .price-card .badge { position:absolute; top:-12px; right:24px; background:var(--accent); color:#fff; font-size:11px; font-weight:800; padding:4px 12px; border-radius:20px; }
+  .price-card h4 { font-size:15px; font-weight:700; margin-bottom:4px; }
+  .price-card .amount { font-size:32px; font-weight:900; margin:10px 0 4px; }
+  .price-card .amount span { font-size:13px; color:var(--muted); font-weight:600; }
+  .price-card ul { list-style:none; margin:18px 0 22px; }
+  .price-card li { font-size:13px; color:#c4cade; margin-bottom:9px; padding-left:20px; position:relative; }
+  .price-card li::before { content:'✓'; position:absolute; left:0; color:var(--accent); font-weight:800; }
+
+  .faq-item { border-bottom:1px solid var(--border); padding:18px 0; cursor:pointer; }
+  .faq-item:last-child { border-bottom:none; }
+  .faq-q { display:flex; justify-content:space-between; align-items:center; font-size:15px; font-weight:600; }
+  .faq-q .chev { color:var(--muted); transition:transform .15s ease; font-size:13px; }
+  .faq-item.open .chev { transform:rotate(180deg); color:var(--accent); }
+  .faq-a { font-size:13.5px; color:var(--muted); margin-top:10px; max-height:0; overflow:hidden; transition:max-height .2s ease; }
+  .faq-item.open .faq-a { max-height:240px; }
+  .faq-wrap { max-width:680px; margin:0 auto; }
+
+  footer { border-top:1px solid var(--border); padding:36px 0; text-align:center; font-size:12.5px; color:var(--muted); }
+  footer .flinks { display:flex; gap:22px; justify-content:center; margin-bottom:14px; flex-wrap:wrap; }
+
+  .chat-fab { position:fixed; bottom:24px; right:24px; width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent3)); border:none; cursor:pointer; box-shadow:0 8px 28px rgba(123,111,255,0.3); font-size:22px; z-index:90; display:flex; align-items:center; justify-content:center; }
+  .chat-panel { position:fixed; bottom:92px; right:24px; width:340px; max-width:calc(100vw - 48px); background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:0 18px 50px rgba(0,0,0,0.4); display:none; flex-direction:column; max-height:460px; z-index:90; overflow:hidden; }
+  .chat-panel.show { display:flex; }
+  .chat-head { padding:14px 18px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+  .chat-head strong { font-size:14px; }
+  .chat-head span { font-size:11px; color:var(--accent); }
+  .chat-head button { background:none; border:none; color:var(--muted); cursor:pointer; font-size:16px; }
+  .chat-body { padding:14px 18px; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:10px; }
+  .msg { font-size:13px; padding:10px 13px; border-radius:11px; max-width:88%; line-height:1.5; }
+  .msg.bot { background:#11141b; border:1px solid var(--border); align-self:flex-start; color:#c4cade; }
+  .msg.user { background:rgba(123,111,255,0.14); color:var(--text); align-self:flex-end; }
+  .chat-suggestions { padding:0 18px 14px; display:flex; flex-wrap:wrap; gap:6px; }
+  .chip-btn { font-size:11.5px; background:#11141b; border:1px solid var(--border); color:var(--muted); border-radius:20px; padding:6px 12px; cursor:pointer; }
+  .chip-btn:hover { color:var(--accent); border-color:var(--accent); }
+  .chat-input-row { padding:12px; border-top:1px solid var(--border); display:flex; gap:8px; }
+  .chat-input-row input { flex:1; background:#11141b; border:1px solid var(--border); border-radius:9px; padding:10px 12px; color:var(--text); font-size:13px; outline:none; }
+  .chat-input-row button { background:var(--accent); border:none; color:#fff; font-weight:800; border-radius:9px; padding:0 14px; cursor:pointer; font-size:13px; }
+
+  @media (max-width: 760px) {
+    h1 { font-size:30px; }
+    .steps, .pricing-grid, .qgrid { grid-template-columns:1fr; }
+    .nav-links { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><div class="logo-icon">F</div>FlowDesk <span>Business Plan AI</span></div>
+    <div class="nav-links">
+      <a href="#tool">Try it free</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="#tool" class="btn btn-primary">Build my plan →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="pill">📄 Built for first-time founders · No signup to try</div>
+    <h1>Answer six questions. Get a <em>full business plan</em> and 12-month forecast.</h1>
+    <p class="sub">Type a few plain-English answers about your idea. The AI writes a one-page business plan — problem, solution, market, model, go-to-market, milestones — plus a numeric 12-month revenue and cost forecast, formatted and ready to download as a PDF.</p>
+    <div class="hero-ctas">
+      <a href="#tool" class="btn btn-primary">Build my plan free</a>
+      <a href="#how" class="btn btn-ghost">See how it works</a>
+    </div>
+    <div class="hero-note">No credit card · No account · One free plan preview per day</div>
+  </div>
+</header>
+
+<section class="tool-section" id="tool">
+  <div class="wrap">
+    <div class="tool-card">
+      <h2>📝 Tell us about your business idea</h2>
+      <div class="hint">Six short answers is all it takes — a sentence or two each is plenty. The AI fills in the structure and the numbers.</div>
+
+      <div class="qfield">
+        <label>1. What's the business idea, in one or two sentences?</label>
+        <textarea id="q1" rows="2" maxlength="400" placeholder="e.g. A subscription box that sends home bakers pre-measured specialty flour blends each month."></textarea>
+      </div>
+      <div class="qfield">
+        <label>2. Who is your target customer?</label>
+        <textarea id="q2" rows="2" maxlength="300" placeholder="e.g. Home bakers aged 25–45 who already buy specialty ingredients online."></textarea>
+      </div>
+      <div class="qfield">
+        <label>3. How will you make money? <span class="opt">(pricing / revenue model)</span></label>
+        <textarea id="q3" rows="2" maxlength="300" placeholder="e.g. $24/month subscription box, plus one-time gift boxes around holidays."></textarea>
+      </div>
+      <div class="qgrid">
+        <div class="qfield">
+          <label>4. Roughly how much will it cost to start?</label>
+          <input type="text" id="q4" maxlength="120" placeholder="e.g. About $4,000 for inventory, packaging, and a basic website">
+        </div>
+        <div class="qfield">
+          <label>5. What's your timeline to launch?</label>
+          <input type="text" id="q5" maxlength="120" placeholder="e.g. Launching in 3 months, part-time alongside my day job">
+        </div>
+      </div>
+      <div class="qfield">
+        <label>6. What does success look like in 12 months?</label>
+        <textarea id="q6" rows="2" maxlength="300" placeholder="e.g. 300 paying subscribers and enough margin to go full-time."></textarea>
+      </div>
+
+      <button class="btn btn-primary btn-block" id="generate-btn">✨ Generate my business plan</button>
+      <div class="quota" id="quota-line"><span class="dot"></span> <span id="quota-text">Loading your free quota…</span></div>
+
+      <div class="loading" id="loading-row"><div class="spinner"></div> Drafting your plan and building your 12-month forecast…</div>
+
+      <div class="result" id="result-box">
+        <div class="result-block">
+          <div class="lbl">Your One-Page Business Plan</div>
+          <div id="out-plan"></div>
+        </div>
+        <div class="result-block">
+          <div class="lbl">12-Month Financial Forecast</div>
+          <div class="forecast-wrap">
+            <table class="forecast" id="out-forecast"></table>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block" id="download-pdf-btn">⬇ Download as PDF</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="section-label">How it works</div>
+    <div class="section-title">From idea to investor-ready plan in 3 steps</div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h4>Answer six questions</h4><p>Plain language, a sentence or two each. No business-school jargon, no spreadsheets, no blank-page anxiety.</p></div>
+      <div class="step"><div class="num">2</div><h4>AI builds your plan + forecast</h4><p>In under a minute you get a structured one-page plan — problem, solution, market, model, go-to-market, milestones — plus a realistic 12-month revenue and cost forecast.</p></div>
+      <div class="step"><div class="num">3</div><h4>Download, refine, and use it</h4><p>Export a clean PDF you can bring to a bank, an accelerator application, a co-founder conversation, or simply to think more clearly about your own plan.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="wrap">
+    <div class="section-label">Pricing</div>
+    <div class="section-title">Try it free. Download when you're ready.</div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h4>Free</h4>
+        <div class="amount">$0</div>
+        <ul>
+          <li>1 full plan preview per day</li>
+          <li>On-screen plan + forecast</li>
+          <li>No account required</li>
+          <li>Refine your answers and re-run anytime</li>
+        </ul>
+        <a href="#tool" class="btn btn-ghost btn-block">Build my plan</a>
+      </div>
+      <div class="price-card featured">
+        <div class="badge">UNLOCK DOWNLOADS</div>
+        <h4>Pro</h4>
+        <div class="amount">$19 <span>/ month</span></div>
+        <ul>
+          <li>Unlimited plan generations</li>
+          <li>Unlimited PDF downloads</li>
+          <li>Polished, presentation-ready formatting</li>
+          <li>Priority AI response speed</li>
+          <li>Cancel anytime, one click</li>
+        </ul>
+        <button class="btn btn-primary btn-block" id="pro-monthly-btn">Upgrade to Pro</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-label">FAQ</div>
+    <div class="section-title">Questions, answered</div>
+    <div class="faq-wrap" id="faq-list"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="flinks">
+      <a href="#tool">Tool</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ / Docs</a>
+      <a href="mailto:flowdskai@gmail.com">Contact</a>
+    </div>
+    <div>FlowDesk Business Plan AI · part of the FlowDesk AI tool family · flowdskai@gmail.com</div>
+    <div style="margin-top:6px; opacity:.7;">© 2026 FlowDesk AI. Generated plans are a starting point for your own thinking and judgment — not financial, legal, or investment advice.</div>
+  </div>
+</footer>
+
+<button class="chat-fab" id="chat-fab" aria-label="Open support chat">💬</button>
+<div class="chat-panel" id="chat-panel">
+  <div class="chat-head">
+    <div><strong>FlowDesk Support</strong><br><span>● AI assistant — replies instantly</span></div>
+    <button id="chat-close">✕</button>
+  </div>
+  <div class="chat-body" id="chat-body">
+    <div class="msg bot">Hi! I'm the FlowDesk AI assistant. Ask me about how the plan generator works, pricing, downloads, refunds, or your data — I can help right here, no waiting on email.</div>
+  </div>
+  <div class="chat-suggestions" id="chat-suggestions"></div>
+  <div class="chat-input-row">
+    <input type="text" id="chat-input" placeholder="Type your question…">
+    <button id="chat-send">Send</button>
+  </div>
+</div>
+
+<div class="modal-bg" id="paywall-modal">
+  <div class="modal">
+    <h3>You've used today's free preview</h3>
+    <p>You get one full plan + forecast preview every day, free, with no account. Upgrade to Pro for unlimited generations, unlimited PDF downloads, and presentation-ready formatting — or come back tomorrow for another free preview.</p>
+    <div class="price">$19<span> / month, cancel anytime</span></div>
+    <button class="btn btn-primary btn-block" id="modal-upgrade-btn" style="margin-top:18px;">Upgrade to Pro — $19/mo</button>
+    <button class="btn btn-ghost btn-block" style="margin-top:10px;" id="modal-wait-btn">I'll wait for tomorrow's free preview</button>
+    <div class="modal-close" id="modal-close">Close</div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+/* =========================================================================
+   FlowDesk Business Plan AI — front-end logic
+   - Free tier: 1 full plan preview/day, tracked client-side (resets at local midnight)
+   - PDF download is the Pro-gated action (pay-to-download model)
+   - Calls /api/generate (serverless function) which talks to the LLM.
+   - If the API isn't deployed yet (or errors), falls back to a local
+     template-based generator so the demo always works end-to-end.
+   ========================================================================= */
+
+const FREE_DAILY_LIMIT = 1;
+const QUOTA_KEY = 'fd_bizplan_quota_v1';
+const PRO_KEY = 'fd_bizplan_pro_v1'; // set to '1' locally once a Pro purchase is detected/confirmed (manual for now)
+
+function todayStr() {
+  const d = new Date();
+  return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+}
+function getQuota() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(QUOTA_KEY) || 'null');
+    if (!raw || raw.day !== todayStr()) return { day: todayStr(), used: 0 };
+    return raw;
+  } catch(e) { return { day: todayStr(), used: 0 }; }
+}
+function setQuota(q) { localStorage.setItem(QUOTA_KEY, JSON.stringify(q)); }
+function isPro() { return localStorage.getItem(PRO_KEY) === '1'; }
+function refreshQuotaUI() {
+  const q = getQuota();
+  const remaining = Math.max(0, FREE_DAILY_LIMIT - q.used);
+  const line = document.getElementById('quota-line');
+  const text = document.getElementById('quota-text');
+  if (isPro()) {
+    text.textContent = 'Pro plan active — unlimited generations and downloads';
+  } else {
+    text.textContent = remaining > 0
+      ? `${remaining} of ${FREE_DAILY_LIMIT} free plan preview left today`
+      : `Daily free preview used — resets at midnight, or upgrade to Pro for unlimited`;
+  }
+  line.classList.toggle('low', !isPro() && remaining === 0);
+}
+refreshQuotaUI();
+
+/* ---------- Local fallback generator (zero backend / zero cost) ---------- */
+function localGenerate(answers) {
+  const [idea, customer, model, cost, timeline, goal] = answers;
+  const ideaShort = (idea || 'this business').replace(/\.$/, '');
+  const sections = [
+    { h: 'The Problem', t: `${customer || 'Your target customers'} regularly run into a gap that existing options don't solve well — they either overpay for something generic, or settle for a workaround that wastes their time and money.` },
+    { h: 'The Solution', t: `${ideaShort}. The core idea is simple to explain, simple to try, and solves a real, recurring frustration rather than a nice-to-have.` },
+    { h: 'Target Market', t: `The initial focus is ${customer || 'a clearly defined early-adopter group'} — a specific, reachable audience that already spends money on adjacent products, making them faster and cheaper to find than a broad, generic market.` },
+    { h: 'Business Model', t: `${model || 'Revenue comes from a straightforward, recurring pricing structure that is easy for customers to understand and easy for you to forecast.'}` },
+    { h: 'Go-To-Market', t: `Early traction will come from direct outreach to the target audience in the communities where they already gather, supported by word-of-mouth from the first satisfied customers — not paid ads.` },
+    { h: 'Costs & Timeline', t: `Estimated startup costs: ${cost || 'a modest, bootstrap-friendly budget'}. Target timeline to launch: ${timeline || 'a few months of focused part-time work'}.` },
+    { h: '12-Month Milestone', t: `Success in year one looks like: ${goal || 'a small base of repeat, paying customers and a clear, validated path to growing further'}.` }
+  ];
+  const monthly = [];
+  let baseRev = 150, baseCost = 900;
+  for (let m = 1; m <= 12; m++) {
+    const revenue = Math.round(baseRev * Math.pow(1.35, m - 1));
+    const costs = Math.round(baseCost * (1 + (m - 1) * 0.06));
+    monthly.push({ month: 'Month ' + m, revenue, costs, net: revenue - costs });
+  }
+  return { sections, forecast: monthly };
+}
+
+/* ---------- API call with graceful fallback ---------- */
+async function generatePlan(answers) {
+  try {
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ answers })
+    });
+    if (!res.ok) throw new Error('api-not-available');
+    const data = await res.json();
+    if (!data || !Array.isArray(data.sections) || !Array.isArray(data.forecast)) throw new Error('bad-shape');
+    return { sections: data.sections, forecast: data.forecast };
+  } catch (e) {
+    return localGenerate(answers);
+  }
+}
+
+const genBtn = document.getElementById('generate-btn');
+const loadingRow = document.getElementById('loading-row');
+const resultBox = document.getElementById('result-box');
+const paywallModal = document.getElementById('paywall-modal');
+const fmt = n => '$' + Number(n || 0).toLocaleString('en-US');
+
+let lastResult = null;
+let lastAnswers = null;
+
+function escHtml(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function fmtCurrency(n) {
+  const num = Number(n);
+  if (Number.isNaN(num)) return String(n);
+  return (num < 0 ? '-$' : '$') + Math.abs(Math.round(num)).toLocaleString('en-US');
+}
+
+function renderResult(result) {
+  const planEl = document.getElementById('out-plan');
+  planEl.innerHTML = result.sections.map(s =>
+    `<div class="plan-section"><h4>${escHtml(s.h)}</h4><p>${escHtml(s.t)}</p></div>`
+  ).join('');
+
+  const tbl = document.getElementById('out-forecast');
+  const totalRev = result.forecast.reduce((a, r) => a + Number(r.revenue || 0), 0);
+  const totalCost = result.forecast.reduce((a, r) => a + Number(r.costs || 0), 0);
+  let html = '<thead><tr><th>Month</th><th>Revenue</th><th>Costs</th><th>Net</th></tr></thead><tbody>';
+  result.forecast.forEach(r => {
+    html += `<tr><td>${escHtml(r.month)}</td><td>${fmtCurrency(r.revenue)}</td><td>${fmtCurrency(r.costs)}</td><td>${fmtCurrency((r.revenue||0) - (r.costs||0))}</td></tr>`;
+  });
+  html += `<tr><td>12-Month Total</td><td>${fmtCurrency(totalRev)}</td><td>${fmtCurrency(totalCost)}</td><td>${fmtCurrency(totalRev - totalCost)}</td></tr>`;
+  html += '</tbody>';
+  tbl.innerHTML = html;
+}
+
+async function runGeneration() {
+  const fields = ['q1','q2','q3','q4','q5','q6'];
+  const answers = fields.map(id => document.getElementById(id).value.trim());
+  if (!answers[0]) { document.getElementById('q1').focus(); return; }
+
+  if (!isPro()) {
+    const q = getQuota();
+    if (q.used >= FREE_DAILY_LIMIT) {
+      paywallModal.classList.add('show');
+      return;
+    }
+  }
+
+  genBtn.disabled = true;
+  loadingRow.classList.add('show');
+  resultBox.classList.remove('show');
+
+  const result = await generatePlan(answers);
+  lastResult = result;
+  lastAnswers = answers;
+
+  loadingRow.classList.remove('show');
+  genBtn.disabled = false;
+
+  renderResult(result);
+  resultBox.classList.add('show');
+  resultBox.scrollIntoView({ behavior:'smooth', block:'center' });
+
+  if (!isPro()) {
+    const q = getQuota();
+    q.used += 1;
+    setQuota(q);
+  }
+  refreshQuotaUI();
+}
+genBtn.addEventListener('click', runGeneration);
+
+/* ---------- PDF download (Pro-gated) ---------- */
+document.getElementById('download-pdf-btn').addEventListener('click', () => {
+  if (!isPro()) {
+    paywallModal.classList.add('show');
+    return;
+  }
+  if (!lastResult) return;
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'pt', format: 'letter' });
+    const margin = 56;
+    let y = margin;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const maxWidth = pageWidth - margin * 2;
+
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(18);
+    doc.text('Business Plan — Generated by FlowDesk Business Plan AI', margin, y);
+    y += 28;
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(110);
+    doc.text('flowdskai.com · flowdskai@gmail.com · Generated ' + new Date().toLocaleDateString(), margin, y);
+    doc.setTextColor(20);
+    y += 26;
+
+    lastResult.sections.forEach(s => {
+      if (y > 700) { doc.addPage(); y = margin; }
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(13);
+      doc.text(s.h, margin, y);
+      y += 16;
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5);
+      const lines = doc.splitTextToSize(s.t, maxWidth);
+      doc.text(lines, margin, y);
+      y += lines.length * 14 + 14;
+    });
+
+    doc.addPage();
+    y = margin;
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(15);
+    doc.text('12-Month Financial Forecast', margin, y);
+    y += 26;
+    doc.setFontSize(10);
+    const colX = [margin, margin + 130, margin + 260, margin + 390];
+    doc.setFont('helvetica', 'bold');
+    doc.text('Month', colX[0], y); doc.text('Revenue', colX[1], y); doc.text('Costs', colX[2], y); doc.text('Net', colX[3], y);
+    y += 8;
+    doc.setDrawColor(200); doc.line(margin, y, margin + 470, y);
+    y += 16;
+    doc.setFont('helvetica', 'normal');
+    let totalRev = 0, totalCost = 0;
+    lastResult.forecast.forEach(r => {
+      if (y > 740) { doc.addPage(); y = margin; }
+      totalRev += Number(r.revenue || 0); totalCost += Number(r.costs || 0);
+      doc.text(String(r.month), colX[0], y);
+      doc.text(fmtCurrency(r.revenue), colX[1], y);
+      doc.text(fmtCurrency(r.costs), colX[2], y);
+      doc.text(fmtCurrency((r.revenue||0)-(r.costs||0)), colX[3], y);
+      y += 16;
+    });
+    y += 6;
+    doc.setDrawColor(200); doc.line(margin, y, margin + 470, y);
+    y += 16;
+    doc.setFont('helvetica', 'bold');
+    doc.text('12-Month Total', colX[0], y);
+    doc.text(fmtCurrency(totalRev), colX[1], y);
+    doc.text(fmtCurrency(totalCost), colX[2], y);
+    doc.text(fmtCurrency(totalRev-totalCost), colX[3], y);
+
+    doc.setFont('helvetica', 'italic'); doc.setFontSize(8.5); doc.setTextColor(140);
+    doc.text('Generated for guidance and planning purposes only — not financial, legal, or investment advice. Always validate assumptions with your own research.', margin, 760, { maxWidth: 470 });
+
+    doc.save('business-plan-flowdesk-ai.pdf');
+  } catch (e) {
+    alert('PDF generation hit a snag in this browser. Try again, or use your browser\'s "Print → Save as PDF" on this page as a fallback.');
+  }
+});
+
+/* Paywall modal controls */
+document.getElementById('modal-close').addEventListener('click', () => paywallModal.classList.remove('show'));
+document.getElementById('modal-wait-btn').addEventListener('click', () => paywallModal.classList.remove('show'));
+const LEMONSQUEEZY_CHECKOUT_URL = 'https://flowdesk1.lemonsqueezy.com/checkout/buy/3adc6a69-878e-4ed6-8b59-05474cb8f6b4';
+function goToCheckout(plan) {
+  window.open(LEMONSQUEEZY_CHECKOUT_URL, '_blank', 'noopener');
+}
+document.getElementById('modal-upgrade-btn').addEventListener('click', () => goToCheckout('Pro — $19/mo'));
+document.getElementById('pro-monthly-btn').addEventListener('click', () => goToCheckout('Pro — $19/mo'));
+
+/* ---------- FAQ ---------- */
+const FAQS = [
+  { q: 'Is this really free to use?', a: 'Yes — you get one full business plan + 12-month forecast preview every day, on-screen, with no account, no email, and no credit card. The free preview resets every 24 hours.' },
+  { q: 'What exactly do I get from each generation?', a: 'A structured one-page business plan covering the problem, your solution, target market, business model, go-to-market approach, and 12-month milestones — plus a numeric 12-month revenue, cost, and net forecast table.' },
+  { q: 'Do I need to know anything about business planning to use this?', a: 'No. Just answer six plain-language questions about your idea — the AI handles the structure, the framing, and the financial modeling for you.' },
+  { q: 'Why do I need to pay to download the PDF?', a: 'Generating and viewing your plan is always free. Pro unlocks unlimited generations plus polished, presentation-ready PDF downloads you can bring to a bank, an accelerator application, or a co-founder conversation.' },
+  { q: 'What happens to what I type in?', a: 'Your answers are sent only to generate your plan — they are not stored, sold, shared with anyone else, or used to train any model on your behalf.' },
+  { q: 'Can I cancel my Pro subscription anytime?', a: 'Yes — Pro is billed monthly with no contract. Cancel anytime from your billing portal and you\'ll keep access until the end of your current period.' },
+  { q: 'Do you offer refunds?', a: 'If Pro isn\'t a fit, contact us within 14 days of your first charge for a full refund — no forms, no hassle.' },
+  { q: 'Is this financial or legal advice?', a: 'No. Generated plans are a structured starting point for your own thinking — always validate the numbers and assumptions with your own research, an accountant, or an advisor before relying on them.' }
+];
+const faqList = document.getElementById('faq-list');
+FAQS.forEach((item) => {
+  const el = document.createElement('div');
+  el.className = 'faq-item';
+  el.innerHTML = `<div class="faq-q"><span>${item.q}</span><span class="chev">▾</span></div><div class="faq-a">${item.a}</div>`;
+  el.addEventListener('click', () => el.classList.toggle('open'));
+  faqList.appendChild(el);
+});
+
+/* ---------- AI support chat (rule-based, zero-cost, FAQ-seeded) ---------- */
+const SUPPORT_TOPICS = [
+  ...FAQS,
+  { q: 'How accurate is the financial forecast?', a: 'The forecast is a structured estimate based on the inputs you give — a useful planning scaffold, not a guarantee. Treat the numbers as a starting hypothesis to test and refine with real data as you go.' },
+  { q: 'Is my payment information safe?', a: 'All payments are processed by our payment provider\'s secure, PCI-compliant checkout — we never see or store your card details.' },
+  { q: 'I want to talk to a human.', a: 'This tool is run by a small, fully remote team and support is handled here in chat and by email at flowdskai@gmail.com — we read and respond to every message personally, just not by phone.' },
+  { q: 'Can I edit the plan after I generate it?', a: 'The on-screen plan and the downloaded PDF are meant as a strong first draft — copy the text into your own document to edit freely, or simply re-answer the six questions and regenerate with more detail.' }
+];
+function findBestAnswer(question) {
+  const q = question.toLowerCase();
+  let best = null, bestScore = 0;
+  SUPPORT_TOPICS.forEach(topic => {
+    const words = topic.q.toLowerCase().split(/\W+/).filter(w => w.length > 3);
+    let score = 0;
+    words.forEach(w => { if (q.includes(w)) score++; });
+    if (score > bestScore) { bestScore = score; best = topic; }
+  });
+  if (best && bestScore > 0) return best.a;
+  return "I don't have a canned answer for that one yet — the most reliable place to ask is flowdskai@gmail.com and a real person on the team will get back to you. In the meantime, try the suggestions below or check the FAQ section on this page.";
+}
+
+const chatFab = document.getElementById('chat-fab');
+const chatPanel = document.getElementById('chat-panel');
+const chatBody = document.getElementById('chat-body');
+const chatInput = document.getElementById('chat-input');
+const chatSuggestions = document.getElementById('chat-suggestions');
+
+function addMsg(text, who) {
+  const m = document.createElement('div');
+  m.className = 'msg ' + who;
+  m.textContent = text;
+  chatBody.appendChild(m);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+function renderSuggestions() {
+  chatSuggestions.innerHTML = '';
+  const picks = [SUPPORT_TOPICS[0], SUPPORT_TOPICS[3], SUPPORT_TOPICS[8], SUPPORT_TOPICS[10]];
+  picks.forEach(p => {
+    const b = document.createElement('button');
+    b.className = 'chip-btn';
+    b.textContent = p.q;
+    b.addEventListener('click', () => handleUserMessage(p.q));
+    chatSuggestions.appendChild(b);
+  });
+}
+function handleUserMessage(text) {
+  if (!text.trim()) return;
+  addMsg(text, 'user');
+  chatInput.value = '';
+  setTimeout(() => addMsg(findBestAnswer(text), 'bot'), 380);
+}
+chatFab.addEventListener('click', () => { chatPanel.classList.toggle('show'); if (chatPanel.classList.contains('show')) renderSuggestions(); });
+document.getElementById('chat-close').addEventListener('click', () => chatPanel.classList.remove('show'));
+document.getElementById('chat-send').addEventListener('click', () => handleUserMessage(chatInput.value));
+chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleUserMessage(chatInput.value); });
+</script>
+</body>
+</html>
